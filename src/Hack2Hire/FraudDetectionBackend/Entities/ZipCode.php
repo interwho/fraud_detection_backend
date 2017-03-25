@@ -3,12 +3,12 @@ namespace Hack2Hire\FraudDetectionBackend\Entities;
 
 use Doctrine\ORM\Mapping;
 /**
- * ZipCodes
+ * ZipCode
  *
  * @Table(name="zip_codes")
  * @Entity
  */
-class ZipCodes
+class ZipCode
 {
     /**
      * @var integer $id
