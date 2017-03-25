@@ -138,8 +138,8 @@ class DashboardController extends Controller
         /** @var ZipCode[] $zipCodes */
         $zipCodes = $zipCodeRepository->findBy(['name' => $regionName]);
         foreach ($zipCodes as $zipCode) {
-            $location = $zipCode->getCounty() . ', ' . $zipCode->getName();
-error_log($location);
+            $location = $zipCode->getCounty() . ' County, ' . $zipCode->getName();
+            
             /** @var POSDevice[] $posDevices */
             $posDevices = $posDeviceRepository->findBy(['location' => $location]);
             foreach ($posDevices as $posDevice) {
