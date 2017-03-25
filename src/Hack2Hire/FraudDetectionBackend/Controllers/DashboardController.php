@@ -24,6 +24,8 @@ class DashboardController extends Controller
     public function transactions()
     {
         header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
@@ -119,6 +121,8 @@ class DashboardController extends Controller
     public function searchTransactions()
     {
         header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
@@ -183,6 +187,8 @@ class DashboardController extends Controller
     public function searchZipCodes()
     {
         header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
