@@ -42,7 +42,13 @@ class DashboardController extends Controller
             $location = explode(", ", $device->getLocation());
             $county = $location[0];
             $state = $location[1];
-            $zipCode = $zipCodeRepository->findOneBy(['county' => $county, 'name' => $state]);
+            $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
+            foreach ($zipCodes as $currZipCode) {
+                if (!empty($currZipCode->getLatitude()) && !empty($currZipCode->getLongitude())) {
+                    $zipCode = $currZipCode;
+                    break;
+                }
+            }
 
             $featuresArray[] = [
                 "id" => $transaction->getId(),
