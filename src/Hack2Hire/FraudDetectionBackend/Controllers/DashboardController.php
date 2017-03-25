@@ -35,9 +35,10 @@ class DashboardController extends Controller
         foreach ($transactions as $transaction) {
             $count++;
             if ($count == 101) {
+                error_log("101 stopping");
                 break;
             }
-            
+
             // Determine point type
             if ($transaction->getIsFraud()) {
                 $name = 'FraudulentTransaction-' . $transaction->getFraudReason();
@@ -51,6 +52,7 @@ class DashboardController extends Controller
             $deviceId = $transaction->getDeviceId();
             $device = $posDeviceRepository->findOneBy(['id' => $deviceId]);
             if (empty($device)) {
+                error_log("no device continue");
                 //Fraud
                 continue;
             }
@@ -59,6 +61,7 @@ class DashboardController extends Controller
             $state = $location[1];
             $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
             if (empty($zipCodes)) {
+                error_log("no zip code continue");
                 continue;
             }
 
