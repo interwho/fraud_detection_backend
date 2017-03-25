@@ -21,8 +21,8 @@ class DashboardController extends Controller
         $queryBuilder = $doctrine->getManager()->createQueryBuilder();
 
         /** @var Transaction[] $transactions */
-        $transactions = $queryBuilder->select('t')
-            ->from('Transaction', 't')
+        $transactions = $queryBuilder->select('*')
+            ->from('transactions', 't')
             ->orderBy('t.date_added', 'DESC')
             ->setMaxResults(100)
             ->getQuery()
