@@ -95,7 +95,7 @@ class DashboardController extends Controller
                 "geometry" => [
                     "type" => "Point",
                     "coordinates" => [
-                        $zipCode->getLatitude(), $zipCode->getLongitude()
+                        $zipCode->getLongitude(), $zipCode->getLatitude()
                     ]
                 ]
             ];
