@@ -20,6 +20,18 @@ class FraudService
      */
     public function isFraud($id, $deviceId, $transactionValue, $accountId, $tsMillis)
     {
+        /** @var Transaction $prevTrans */
+        $prevTrans = (new DoctrineService())->getRepository('Transaction')->findOneBy(['accountId' => $accountId]);
+
+        // No Previous User Transactions
+        if (empty($prevTrans)) {
+            if ($this->isFakeDeviceId($deviceId)) {
+                return "FakeDeviceId";
+            }
+
+            return false;
+        }
+
         if ($this->isBackDated($accountId, $tsMillis)) {
             return "FakeDeviceId";
         }
