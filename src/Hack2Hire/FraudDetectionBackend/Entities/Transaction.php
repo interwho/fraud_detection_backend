@@ -16,55 +16,74 @@ class Transaction
      *
      * @Column(name="id", type="integer", nullable=true)
      * @Id
-     * @GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
     /**
-     * @var string $username
+     * @var integer $deviceId
      *
-     * @Column(name="username", type="string", nullable=true)
+     * @Column(name="device_id", type="integer", nullable=false)
      */
-    protected $username;
-
+    protected $deviceId;
 
     /**
-     * @var string $oauth_provider
+     * @var integer $transactionValue
      *
-     * @Column(name="oauth_provider", type="string", nullable=true)
+     * @Column(name="transaction_value", type="double", nullable=false)
      */
-    protected $oauth_provider;
-
+    protected $transactionValue;
 
     /**
-     * @var string $oauth_uid
+     * @var integer $accountId
      *
-     * @Column(name="oauth_uid", type="string", nullable=true)
+     * @Column(name="account_id", type="integer", nullable=false)
      */
-    protected $oauth_uid;
-
+    protected $accountId;
 
     /**
-     * @var string $oauth_token
+     * @var integer $tsMillis
      *
-     * @Column(name="oauth_token", type="string", nullable=true)
+     * @Column(name="ts_millis", type="integer", nullable=false)
      */
-    protected $oauth_token;
+    protected $tsMillis;
 
     /**
-     * @var string $oauth_secret
+     * @var integer $isFraud
      *
-     * @Column(name="oauth_secret", type="string", nullable=true)
+     * @Column(name="is_fraud", type="boolean", nullable=true)
      */
-    protected $oauth_secret;
+    protected $isFraud;
 
-    public function __construct()
+    /**
+     * @var integer $fraudReason
+     *
+     * @Column(name="fraud_reason", type="string", nullable=true)
+     */
+    protected $fraudReason;
+
+    /**
+     * Transaction constructor.
+     * @param int $id
+     * @param int $deviceId
+     * @param int $transactionValue
+     * @param int $accountId
+     * @param int $tsMillis
+     * @param int $isFraud
+     * @param int $fraudReason
+     */
+    public function __construct($id, $deviceId, $transactionValue, $accountId, $tsMillis, $isFraud, $fraudReason)
     {
-        $this->username = "temp";
+        $this->id = $id;
+        $this->deviceId = $deviceId;
+        $this->transactionValue = $transactionValue;
+        $this->accountId = $accountId;
+        $this->tsMillis = $tsMillis;
+        $this->isFraud = $isFraud;
+        $this->fraudReason = $fraudReason;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -72,47 +91,7 @@ class Transaction
     }
 
     /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthProvider()
-    {
-        return $this->oauth_provider;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthUid()
-    {
-        return $this->oauth_uid;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthToken()
-    {
-        return $this->oauth_token;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthSecret()
-    {
-        return $this->oauth_secret;
-    }
-
-    /**
-     * @param $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -120,42 +99,98 @@ class Transaction
     }
 
     /**
-     * @param $username
+     * @return int
      */
-    public function setUsername($username)
+    public function getDeviceId()
     {
-        $this->username = $username;
+        return $this->deviceId;
     }
 
     /**
-     * @param $oauth_provider
+     * @param int $deviceId
      */
-    public function setOAuthProvider($oauth_provider)
+    public function setDeviceId($deviceId)
     {
-        $this->oauth_provider = $oauth_provider;
+        $this->deviceId = $deviceId;
     }
 
     /**
-     * @param $oauth_uid
+     * @return int
      */
-    public function setOAuthUid($oauth_uid)
+    public function getTransactionValue()
     {
-        $this->oauth_uid = $oauth_uid;
+        return $this->transactionValue;
     }
 
     /**
-     * @param $oauth_token
+     * @param int $transactionValue
      */
-    public function setOAuthToken($oauth_token)
+    public function setTransactionValue($transactionValue)
     {
-        $this->oauth_token = $oauth_token;
+        $this->transactionValue = $transactionValue;
     }
 
     /**
-     * @param $oauth_secret
+     * @return int
      */
-    public function setOAuthSecret($oauth_secret)
+    public function getAccountId()
     {
-        $this->oauth_secret = $oauth_secret;
+        return $this->accountId;
+    }
+
+    /**
+     * @param int $accountId
+     */
+    public function setAccountId($accountId)
+    {
+        $this->accountId = $accountId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTsMillis()
+    {
+        return $this->tsMillis;
+    }
+
+    /**
+     * @param int $tsMillis
+     */
+    public function setTsMillis($tsMillis)
+    {
+        $this->tsMillis = $tsMillis;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsFraud()
+    {
+        return $this->isFraud;
+    }
+
+    /**
+     * @param int $isFraud
+     */
+    public function setIsFraud($isFraud)
+    {
+        $this->isFraud = $isFraud;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFraudReason()
+    {
+        return $this->fraudReason;
+    }
+
+    /**
+     * @param int $fraudReason
+     */
+    public function setFraudReason($fraudReason)
+    {
+        $this->fraudReason = $fraudReason;
     }
 }

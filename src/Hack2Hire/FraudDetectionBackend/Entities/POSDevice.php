@@ -16,55 +16,32 @@ class POSDevice
      *
      * @Column(name="id", type="integer", nullable=true)
      * @Id
-     * @GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
     /**
-     * @var string $username
+     * @var string $location
      *
-     * @Column(name="username", type="string", nullable=true)
+     * @Column(name="location", type="string", nullable=true)
      */
-    protected $username;
-
+    protected $location;
 
     /**
-     * @var string $oauth_provider
+     * @var string $merchantName
      *
-     * @Column(name="oauth_provider", type="string", nullable=true)
+     * @Column(name="merchant_name", type="string", nullable=true)
      */
-    protected $oauth_provider;
+    protected $merchantName;
 
-
-    /**
-     * @var string $oauth_uid
-     *
-     * @Column(name="oauth_uid", type="string", nullable=true)
-     */
-    protected $oauth_uid;
-
-
-    /**
-     * @var string $oauth_token
-     *
-     * @Column(name="oauth_token", type="string", nullable=true)
-     */
-    protected $oauth_token;
-
-    /**
-     * @var string $oauth_secret
-     *
-     * @Column(name="oauth_secret", type="string", nullable=true)
-     */
-    protected $oauth_secret;
-
-    public function __construct()
+    public function __construct($id, $location, $merchantName)
     {
-        $this->username = "temp";
+        $this->id = $id;
+        $this->location = $location;
+        $this->merchantName = $merchantName;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -72,47 +49,7 @@ class POSDevice
     }
 
     /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthProvider()
-    {
-        return $this->oauth_provider;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthUid()
-    {
-        return $this->oauth_uid;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthToken()
-    {
-        return $this->oauth_token;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOAuthSecret()
-    {
-        return $this->oauth_secret;
-    }
-
-    /**
-     * @param $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -120,42 +57,34 @@ class POSDevice
     }
 
     /**
-     * @param $username
+     * @return string
      */
-    public function setUsername($username)
+    public function getLocation()
     {
-        $this->username = $username;
+        return $this->location;
     }
 
     /**
-     * @param $oauth_provider
+     * @param string $location
      */
-    public function setOAuthProvider($oauth_provider)
+    public function setLocation($location)
     {
-        $this->oauth_provider = $oauth_provider;
+        $this->location = $location;
     }
 
     /**
-     * @param $oauth_uid
+     * @return string
      */
-    public function setOAuthUid($oauth_uid)
+    public function getMerchantName()
     {
-        $this->oauth_uid = $oauth_uid;
+        return $this->merchantName;
     }
 
     /**
-     * @param $oauth_token
+     * @param string $merchantName
      */
-    public function setOAuthToken($oauth_token)
+    public function setMerchantName($merchantName)
     {
-        $this->oauth_token = $oauth_token;
-    }
-
-    /**
-     * @param $oauth_secret
-     */
-    public function setOAuthSecret($oauth_secret)
-    {
-        $this->oauth_secret = $oauth_secret;
+        $this->merchantName = $merchantName;
     }
 }
