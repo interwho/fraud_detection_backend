@@ -139,13 +139,14 @@ class DashboardController extends Controller
         $zipCodes = $zipCodeRepository->findBy(['name' => $regionName]);
         foreach ($zipCodes as $zipCode) {
             $location = $zipCode->getCounty() . ', ' . $zipCode->getName();
-
+error_log($location);
             /** @var POSDevice[] $posDevices */
             $posDevices = $posDeviceRepository->findBy(['location' => $location]);
             foreach ($posDevices as $posDevice) {
+error_log($posDevice->getMerchantName());
                 /** @var Transaction[] $transactions */
                 $transactions = $transactionRepository->findBy(['deviceId' => $posDevice->getId()]);
-
+error_log('transaciont');
                 foreach ($transactions as $transaction) {
                     $responseArray[] = [
                         'id' => $transaction->getId(),
@@ -192,8 +193,14 @@ class DashboardController extends Controller
         foreach ($regionNames as $region) {
             $regionList[] = $region->getName();
         }
-        
-        return $this->createResponse(json_encode(array_unique($regionList)));
+
+        $uniqueList = array_unique($regionList);
+        $finalList = [];
+        foreach ($uniqueList as $unique) {
+            $finalList[] = $unique;
+        }
+
+        return $this->createResponse(json_encode($finalList));
     }
 
     public function searchPosDevices()
