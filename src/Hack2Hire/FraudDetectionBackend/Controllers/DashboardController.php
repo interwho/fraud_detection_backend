@@ -1,6 +1,7 @@
 <?php
 namespace Hack2Hire\FraudDetectionBackend\Controllers;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Hack2Hire\FraudDetectionBackend\Entities\Transaction;
 use Hack2Hire\FraudDetectionBackend\Repositories\POSDeviceRepository;
 use Hack2Hire\FraudDetectionBackend\Repositories\ZipCodeRepository;
@@ -17,8 +18,15 @@ class DashboardController extends Controller
     {
         $doctrine = new DoctrineService();
 
+        $queryBuilder = $doctrine->getManager()->createQueryBuilder();
+
         /** @var Transaction[] $transactions */
-        $transactions = $doctrine->getRepository('Transaction')->findBy([], ['date_added' => 'DESC'], 100);
+        $transactions = $queryBuilder->select('t')
+            ->from('Transaction', 't')
+            ->orderBy('t.date_added', 'DESC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->execute();
 
         /** @var POSDeviceRepository $posDeviceRepository */
         $posDeviceRepository = $doctrine->getRepository('POSDevice');
