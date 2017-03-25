@@ -59,8 +59,12 @@ class DashboardController extends Controller
             $state = $location[1];
             $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
             if (empty($zipCodes)) {
-                error_log($county . $state . "no zip code continue");
-                continue;
+                $newCounty = explode(" ", $county)[0];
+                $zipCodes = $zipCodeRepository->findBy(['county' => $newCounty, 'name' => $state]);
+                if (empty($zipCodes)) {
+                    error_log($county . $state . "no zip code continue");
+                    continue;
+                }
             }
 
             $zipCode = null;
