@@ -98,4 +98,43 @@ $collection->add(
     )
 );
 
+$collection->add(
+    'DashboardController_transactionsSearch',
+    new Route(
+        '/api/dashboard/transactions/search',
+        array(
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardController::searchTransactions'
+        ),
+        array(
+            '_method' => 'GET'
+        )
+    )
+);
+
+$collection->add(
+    'DashboardController_posDeviceSearch',
+    new Route(
+        '/api/dashboard/pos_devices/search',
+        array(
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardController::searchPosDevices'
+        ),
+        array(
+            '_method' => 'GET'
+        )
+    )
+);
+
+$collection->add(
+    'DashboardController_zipCodeSearch',
+    new Route(
+        '/api/dashboard/zip_codes/search',
+        array(
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardController::searchZipCodes'
+        ),
+        array(
+            '_method' => 'GET'
+        )
+    )
+);
+
 return $collection;

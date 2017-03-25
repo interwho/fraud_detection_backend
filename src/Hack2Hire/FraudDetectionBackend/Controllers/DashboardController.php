@@ -1,8 +1,11 @@
 <?php
 namespace Hack2Hire\FraudDetectionBackend\Controllers;
 
+use Hack2Hire\FraudDetectionBackend\Entities\POSDevice;
 use Hack2Hire\FraudDetectionBackend\Entities\Transaction;
+use Hack2Hire\FraudDetectionBackend\Entities\ZipCode;
 use Hack2Hire\FraudDetectionBackend\Repositories\POSDeviceRepository;
+use Hack2Hire\FraudDetectionBackend\Repositories\TransactionRepository;
 use Hack2Hire\FraudDetectionBackend\Repositories\ZipCodeRepository;
 use Hack2Hire\FraudDetectionBackend\Services\DoctrineService;
 use Hack2Hire\FraudDetectionBackend\Services\GeocodeService;
@@ -13,6 +16,11 @@ use Hack2Hire\FraudDetectionBackend\Services\GeocodeService;
  */
 class DashboardController extends Controller
 {
+    /**
+     * Returns the most recent transactions for the map dashboard
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function transactions()
     {
         header('Access-Control-Allow-Origin: *');
@@ -101,5 +109,95 @@ class DashboardController extends Controller
         ];
 
         return $this->createResponse(json_encode($outputArray));
+    }
+
+    /**
+     * Returns transactions from region_name
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchTransactions()
+    {
+        header('Access-Control-Allow-Origin: *');
+
+        $doctrine = new DoctrineService();
+
+        /** @var TransactionRepository $transactionRepository */
+        $transactionRepository = $doctrine->getRepository('Transaction');
+
+        /** @var POSDeviceRepository $posDeviceRepository */
+        $posDeviceRepository = $doctrine->getRepository('POSDevice');
+
+        /** @var ZipCodeRepository $zipCodeRepository */
+        $zipCodeRepository = $doctrine->getRepository('ZipCode');
+
+        $regionName = $this->params['region_name'];
+
+        $responseArray = [];
+
+        /** @var ZipCode[] $zipCodes */
+        $zipCodes = $zipCodeRepository->findBy(['name' => $regionName]);
+        foreach ($zipCodes as $zipCode) {
+            $location = $zipCode->getCounty() . ', ' . $zipCode->getName();
+
+            /** @var POSDevice[] $posDevices */
+            $posDevices = $posDeviceRepository->findBy(['location' => $location]);
+            foreach ($posDevices as $posDevice) {
+                /** @var Transaction[] $transactions */
+                $transactions = $transactionRepository->findBy(['deviceId' => $posDevice->getId()]);
+
+                foreach ($transactions as $transaction) {
+                    $responseArray[] = [
+                        'id' => $transaction->getId(),
+                        'device' => [
+                            'id' => $posDevice->getId(),
+                            'location' => [
+                                'zip' => $zipCode->getZip(),
+                                'latitude' => $zipCode->getLatitude(),
+                                'longitude' => $zipCode->getLongitude(),
+                                'city' => $zipCode->getCity(),
+                                'county' => $zipCode->getCounty(),
+                                'name' => $zipCode->getName()
+                            ],
+                            'merchant_name' => $posDevice->getMerchantName()
+                        ],
+                        'transaction_value' => $transaction->getTransactionValue(),
+                        'account_id' => $transaction->getAccountId(),
+                        'ts_millis' => $transaction->getTsMillis(),
+                        'is_fraud' => $transaction->getIsFraud(),
+                        'fraud_reason' => $transaction->getFraudReason()
+                    ];
+                }
+            }
+        }
+
+        return $this->createResponse(json_encode($responseArray));
+    }
+
+    /**
+     * Returns a list of region names
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchZipCodes()
+    {
+        header('Access-Control-Allow-Origin: *');
+
+        $doctrine = new DoctrineService();
+
+        /** @var ZipCode[] $regionNames */
+        $regionNames = $doctrine->getRepository('ZipCode')->findAll();
+
+        $regionList = [];
+        foreach ($regionNames as $region) {
+            $regionList[] = $region->getName();
+        }
+        
+        return $this->createResponse(json_encode(array_unique($regionList)));
+    }
+
+    public function searchPosDevices()
+    {
+        return $this->createResponse("Not Implemented");
     }
 }
