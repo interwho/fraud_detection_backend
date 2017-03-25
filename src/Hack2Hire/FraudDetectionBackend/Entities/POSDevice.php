@@ -2,6 +2,7 @@
 namespace Hack2Hire\FraudDetectionBackend\Entities;
 
 use Doctrine\ORM\Mapping;
+
 /**
  * POSDevice
  *
@@ -61,6 +62,7 @@ class POSDevice
     {
         $this->username = "temp";
     }
+
     /**
      * @return mixed
      */

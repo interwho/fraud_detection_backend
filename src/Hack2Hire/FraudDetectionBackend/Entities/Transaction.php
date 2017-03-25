@@ -2,6 +2,7 @@
 namespace Hack2Hire\FraudDetectionBackend\Entities;
 
 use Doctrine\ORM\Mapping;
+
 /**
  * Transaction
  *
@@ -61,6 +62,7 @@ class Transaction
     {
         $this->username = "temp";
     }
+
     /**
      * @return mixed
      */
