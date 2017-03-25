@@ -5,6 +5,7 @@ use Hack2Hire\FraudDetectionBackend\Entities\Transaction;
 use Hack2Hire\FraudDetectionBackend\Repositories\POSDeviceRepository;
 use Hack2Hire\FraudDetectionBackend\Repositories\ZipCodeRepository;
 use Hack2Hire\FraudDetectionBackend\Services\DoctrineService;
+use Hack2Hire\FraudDetectionBackend\Services\GeocodeService;
 
 /**
  * Class DashboardController
@@ -43,11 +44,27 @@ class DashboardController extends Controller
             $county = $location[0];
             $state = $location[1];
             $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
+            if (empty($zipCodes)) {
+                continue;
+            }
+
+            $zipCode = null;
             foreach ($zipCodes as $currZipCode) {
                 if (!empty($currZipCode->getLatitude()) && !empty($currZipCode->getLongitude())) {
                     $zipCode = $currZipCode;
                     break;
                 }
+            }
+
+            if (empty($zipCode)) {
+                $zipCode = $zipCodes[0];
+                $results = (new GeocodeService())->geocodeCounty($county, $state);
+                if (empty($results)) {
+                    continue;
+                }
+                $zipCode->setLatitude($results[0]);
+                $zipCode->setLongitude($results[1]);
+                $zipCodeRepository->save($zipCode);
             }
 
             $featuresArray[] = [
