@@ -1,7 +1,7 @@
 <?php
 namespace Hack2Hire\FraudDetectionBackend\Services;
 
-class FraudService
+class TransactionService
 {
     /**
      * @param $transaction
