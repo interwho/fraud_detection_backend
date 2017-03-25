@@ -18,11 +18,7 @@ class DashboardController extends Controller
         $doctrine = new DoctrineService();
 
         /** @var Transaction[] $transactions */
-        $transactions = $doctrine->getRepository('Transaction')->findAll();
-
-        usort($transactions, function (Transaction $a, Transaction $b) {
-            return strcmp($a->getDateAdded(), $b->getDateAdded());
-        });
+        $transactions = $doctrine->getRepository('Transaction')->findBy(array(), array('date_added' => 'DESC'), 75);
 
         /** @var POSDeviceRepository $posDeviceRepository */
         $posDeviceRepository = $doctrine->getRepository('POSDevice');
@@ -32,10 +28,6 @@ class DashboardController extends Controller
 
         $featuresArray = array();
         foreach ($transactions as $transaction) {
-            if (sizeof($featuresArray) == 70) {
-                break;
-            }
-
             // Determine point type
             if ($transaction->getIsFraud()) {
                 $name = 'FraudulentTransaction-' . $transaction->getFraudReason();
