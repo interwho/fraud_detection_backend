@@ -7,9 +7,6 @@ class FraudService
 {
     public function isFraud($id, $deviceId, $transactionValue, $accountId, $tsMillis)
     {
-
-
-        return false; /*
         $isFraud = false;
 
         if (!$isFraud) {
@@ -19,18 +16,12 @@ class FraudService
         }
 
         if (!$isDifferentLocation) {
-            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 60 * 1000);
+            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 10 * 60 * 1000);
 
-            if ($isFraud) return "Same account, different location within 1 minute.";
+            if ($isFraud) return "Same account, different location within 10 minutes.";
         }
 
-        if (!$this->$isSameValue()) {
-            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 60 * 1000);
-
-            if ($isFraud) return "Same account, same amount at different location within 1 minute.";
-        }
-
-        return $isFraud;*/
+        return $isFraud;
     }
 
     public function isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, $threshold)
