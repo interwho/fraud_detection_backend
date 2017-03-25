@@ -46,11 +46,11 @@ $collection->add(
 
 // DataStream API
 $collection->add(
-    'DataStreamAPIController_transactions',
+    'DataStreamController_transactions',
     new Route(
         '/api/datastream/transactions',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::transactions'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamController::transactions'
         ),
         array(
             '_method' => 'POST'
@@ -59,11 +59,11 @@ $collection->add(
 );
 
 $collection->add(
-    'DataStreamAPIController_posdevices',
+    'DataStreamController_posdevices',
     new Route(
         '/api/datastream/posdevices',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::posDevices'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamController::posDevices'
         ),
         array(
             '_method' => 'POST'
@@ -72,11 +72,11 @@ $collection->add(
 );
 
 $collection->add(
-    'DataStreamAPIController_zipcodes',
+    'DataStreamController_zipcodes',
     new Route(
         '/api/datastream/zipcodes',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::zipCodes'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamController::zipCodes'
         ),
         array(
             '_method' => 'POST'
@@ -86,11 +86,11 @@ $collection->add(
 
 // Dashboard API
 $collection->add(
-    'DashboardAPIController_transactions',
+    'DashboardController_transactions',
     new Route(
         '/api/dashboard/transactions',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardAPIController::transactions'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardController::transactions'
         ),
         array(
             '_method' => 'GET'

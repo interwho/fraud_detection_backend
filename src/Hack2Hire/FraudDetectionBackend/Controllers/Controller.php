@@ -71,6 +71,23 @@ abstract class Controller
     }
 
     /**
+     * Return a formatted response object
+     *
+     * @param string $content
+     * @param string $error
+     * @param string $type
+     * @return Response
+     */
+    protected function createError($content, $error, $type = 'text/html')
+    {
+        return new Response(
+            $content,
+            $error,
+            array('content-type' => $type)
+        );
+    }
+
+    /**
      * Return a formatted redirecting response object
      *
      * @param string $newLocation

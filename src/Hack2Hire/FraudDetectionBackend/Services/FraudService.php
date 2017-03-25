@@ -3,11 +3,8 @@ namespace Hack2Hire\FraudDetectionBackend\Services;
 
 class FraudService
 {
-    /**
-     * @param $transaction
-     * @return boolean
-     */
-    private function isFraud($transaction)
+
+    public function isFraud($id, $deviceId, $transactionValue, $accountId, $tsMillis)
     {
         $connection = new TwitterOAuth(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
 
