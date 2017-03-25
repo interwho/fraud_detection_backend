@@ -33,7 +33,7 @@ class FraudService
         /** @var Transaction $transactions */
         $last_valid_transaction = (new DoctrineService())->getRepository('Transaction')->findOneBy(
             ['isFraud' => false],
-            ['ts_millis' => 'DESC']
+            ['tsMillis' => 'DESC']
         );
 
         if (abs($tsMillis - $last_valid_transaction->getTsMillis()) > $threshold) {
