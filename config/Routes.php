@@ -4,6 +4,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 $collection = new RouteCollection();
 
+// Pages **Just in Case**
 $collection->add(
     'PageController_home',
     new Route(
@@ -43,25 +44,53 @@ $collection->add(
     )
 );
 
+// DataStream API
 $collection->add(
-    'PageController_search',
+    'DataStreamAPIController_transactions',
     new Route(
-        '/search',
+        '/api/datastream/transactions',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\PageController::search'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::transactions'
         ),
         array(
-            '_method' => 'GET'
+            '_method' => 'POST'
         )
     )
 );
 
 $collection->add(
-    'PageController_twitter',
+    'DataStreamAPIController_posdevices',
     new Route(
-        '/twitter',
+        '/api/datastream/posdevices',
         array(
-            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\PageController::twitter'
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::posDevices'
+        ),
+        array(
+            '_method' => 'POST'
+        )
+    )
+);
+
+$collection->add(
+    'DataStreamAPIController_zipcodes',
+    new Route(
+        '/api/datastream/zipcodes',
+        array(
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DataStreamAPIController::zipCodes'
+        ),
+        array(
+            '_method' => 'POST'
+        )
+    )
+);
+
+// Dashboard API
+$collection->add(
+    'DashboardAPIController_transactions',
+    new Route(
+        '/api/dashboard/transactions',
+        array(
+            '_controller' => 'Hack2Hire\FraudDetectionBackend\Controllers\DashboardAPIController::transactions'
         ),
         array(
             '_method' => 'GET'

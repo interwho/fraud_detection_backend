@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping;
 /**
  * POSDevice
  *
- * @Table(name="pos_device")
+ * @Table(name="pos_devices")
  * @Entity
  */
 class POSDevice

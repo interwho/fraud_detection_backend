@@ -2,6 +2,7 @@
 namespace Hack2Hire\FraudDetectionBackend\Entities;
 
 use Doctrine\ORM\Mapping;
+
 /**
  * ZipCode
  *
@@ -11,149 +12,175 @@ use Doctrine\ORM\Mapping;
 class ZipCode
 {
     /**
-     * @var integer $id
+     * @var integer $zip
      *
-     * @Column(name="id", type="integer", nullable=true)
+     * @Column(name="zip", type="integer", nullable=false)
      * @Id
-     * @GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    protected $zip;
 
     /**
-     * @var string $username
+     * @var string $latitude
      *
-     * @Column(name="username", type="string", nullable=true)
+     * @Column(name="latitude", type="string", nullable=true)
      */
-    protected $username;
-
+    protected $latitude;
 
     /**
-     * @var string $oauth_provider
+     * @var string $longitude
      *
-     * @Column(name="oauth_provider", type="string", nullable=true)
+     * @Column(name="longitude", type="string", nullable=true)
      */
-    protected $oauth_provider;
-
+    protected $longitude;
 
     /**
-     * @var string $oauth_uid
+     * @var string $city
      *
-     * @Column(name="oauth_uid", type="string", nullable=true)
+     * @Column(name="city", type="string", nullable=true)
      */
-    protected $oauth_uid;
-
+    protected $city;
 
     /**
-     * @var string $oauth_token
+     * @var string $state
      *
-     * @Column(name="oauth_token", type="string", nullable=true)
+     * @Column(name="state", type="string", nullable=true)
      */
-    protected $oauth_token;
+    protected $state;
 
     /**
-     * @var string $oauth_secret
+     * @var string $county
      *
-     * @Column(name="oauth_secret", type="string", nullable=true)
+     * @Column(name="county", type="string", nullable=true)
      */
-    protected $oauth_secret;
-
-    public function __construct()
-    {
-        $this->username = "temp";
-    }
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $county;
 
     /**
-     * @return mixed
+     * @var string $name
+     *
+     * @Column(name="name", type="string", nullable=true)
      */
-    public function getUsername()
+    protected $name;
+
+    public function __construct($zip, $latitude, $longitude, $city, $state, $county, $name)
     {
-        return $this->username;
+        $this->zip = $zip;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+        $this->city = $city;
+        $this->state = $state;
+        $this->county = $county;
+        $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getOAuthProvider()
+    public function getZip()
     {
-        return $this->oauth_provider;
+        return $this->zip;
     }
 
     /**
-     * @return mixed
+     * @param int $zip
      */
-    public function getOAuthUid()
+    public function setZip($zip)
     {
-        return $this->oauth_uid;
+        $this->zip = $zip;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getOAuthToken()
+    public function getLatitude()
     {
-        return $this->oauth_token;
+        return $this->latitude;
     }
 
     /**
-     * @return mixed
+     * @param string $latitude
      */
-    public function getOAuthSecret()
+    public function setLatitude($latitude)
     {
-        return $this->oauth_secret;
+        $this->latitude = $latitude;
     }
 
     /**
-     * @param $id
+     * @return string
      */
-    public function setId($id)
+    public function getLongitude()
     {
-        $this->id = $id;
+        return $this->longitude;
     }
 
     /**
-     * @param $username
+     * @param string $longitude
      */
-    public function setUsername($username)
+    public function setLongitude($longitude)
     {
-        $this->username = $username;
+        $this->longitude = $longitude;
     }
 
     /**
-     * @param $oauth_provider
+     * @return string
      */
-    public function setOAuthProvider($oauth_provider)
+    public function getCity()
     {
-        $this->oauth_provider = $oauth_provider;
+        return $this->city;
     }
 
     /**
-     * @param $oauth_uid
+     * @param string $city
      */
-    public function setOAuthUid($oauth_uid)
+    public function setCity($city)
     {
-        $this->oauth_uid = $oauth_uid;
+        $this->city = $city;
     }
 
     /**
-     * @param $oauth_token
+     * @return string
      */
-    public function setOAuthToken($oauth_token)
+    public function getState()
     {
-        $this->oauth_token = $oauth_token;
+        return $this->state;
     }
 
     /**
-     * @param $oauth_secret
+     * @param string $state
      */
-    public function setOAuthSecret($oauth_secret)
+    public function setState($state)
     {
-        $this->oauth_secret = $oauth_secret;
+        $this->state = $state;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCounty()
+    {
+        return $this->county;
+    }
+
+    /**
+     * @param string $county
+     */
+    public function setCounty($county)
+    {
+        $this->county = $county;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }

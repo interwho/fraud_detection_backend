@@ -2,13 +2,13 @@
 namespace Hack2Hire\FraudDetectionBackend\Repositories;
 
 use Doctrine\ORM\EntityRepository;
-use Hack2Hire\FraudDetectionBackend\Entities\User;
+use Hack2Hire\FraudDetectionBackend\Entities\Transaction;
 
 /**
- * @method User findOneBy(array $criteria)
- * @method User[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Transaction findOneBy(array $criteria)
+ * @method Transaction[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends EntityRepository implements RepositoryInterface
+class TransactionRepository extends EntityRepository implements RepositoryInterface
 {
     /**
      * {@inheritDoc}
