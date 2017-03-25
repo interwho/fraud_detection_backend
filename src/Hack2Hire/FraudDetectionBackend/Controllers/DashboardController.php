@@ -24,8 +24,8 @@ class DashboardController extends Controller
     public function transactions()
     {
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+        header('Access-Control-Allow-Methods: GET');
+        header('Access-Control-Allow-Headers: X-Requested-With, Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
@@ -59,6 +59,8 @@ class DashboardController extends Controller
             $location = explode(", ", $device->getLocation());
             $county = $location[0];
             $state = $location[1];
+
+            /** @var ZipCode[] $zipCodes */
             $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
             if (empty($zipCodes)) {
                 $newCounty = explode(" ", $county);
@@ -121,8 +123,8 @@ class DashboardController extends Controller
     public function searchTransactions()
     {
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+        header('Access-Control-Allow-Methods: GET');
+        header('Access-Control-Allow-Headers: X-Requested-With, Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
@@ -187,8 +189,8 @@ class DashboardController extends Controller
     public function searchZipCodes()
     {
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+        header('Access-Control-Allow-Methods: GET');
+        header('Access-Control-Allow-Headers: X-Requested-With, Origin, Content-Type, X-Auth-Token');
 
         $doctrine = new DoctrineService();
 
