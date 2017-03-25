@@ -32,7 +32,7 @@ class DashboardController extends Controller
 
         $featuresArray = array();
         foreach ($transactions as $transaction) {
-            if (sizeof($featuresArray) == 250) {
+            if (sizeof($featuresArray) == 70) {
                 break;
             }
 
