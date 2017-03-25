@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function transactions()
     {
         header('Access-Control-Allow-Origin: *');
-        
+
         $doctrine = new DoctrineService();
 
         /** @var Transaction[] $transactions */
