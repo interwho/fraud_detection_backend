@@ -10,15 +10,15 @@ class FraudService
         $isFraud = false;
 
         if (!$isFraud) {
-            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 60 * 60 * 1000);
+            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 10 * 60 * 1000);
 
-            if ($isFraud) return "Back Date more than 1 hour.";
+            if ($isFraud) return "Back Date more than 10 minutes.";
         }
 
         if (!$isFraud) {
-            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 10 * 60 * 1000);
+            $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 60 * 60 * 1000);
 
-            if ($isFraud) return "Same account, different location within 10 minutes.";
+            if ($isFraud) return "Same account, different location within 1 hour.";
         }
 
         return $isFraud;
