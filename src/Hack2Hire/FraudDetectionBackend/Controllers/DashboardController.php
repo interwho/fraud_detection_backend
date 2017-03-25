@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $doctrine = new DoctrineService();
 
         /** @var Transaction[] $transactions */
-        $transactions = $doctrine->getRepository('Transaction')->findAll();
+        $transactions = $doctrine->getRepository('Transaction')->findBy([], ['date_added' => 'DESC'], 100);
 
         /** @var POSDeviceRepository $posDeviceRepository */
         $posDeviceRepository = $doctrine->getRepository('POSDevice');

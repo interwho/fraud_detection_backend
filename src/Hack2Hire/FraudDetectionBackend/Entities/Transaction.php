@@ -62,6 +62,13 @@ class Transaction
     protected $fraudReason;
 
     /**
+     * @var integer $dateAdded
+     *
+     * @Column(name="date_added", type="integer", nullable=false)
+     */
+    protected $dateAdded;
+
+    /**
      * Transaction constructor.
      * @param int $id
      * @param int $deviceId
@@ -80,6 +87,7 @@ class Transaction
         $this->tsMillis = $tsMillis;
         $this->isFraud = $isFraud;
         $this->fraudReason = $fraudReason;
+        $this->dateAdded = time();
     }
 
     /**
