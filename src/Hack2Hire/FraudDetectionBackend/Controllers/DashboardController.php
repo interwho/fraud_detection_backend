@@ -31,10 +31,8 @@ class DashboardController extends Controller
         $zipCodeRepository = $doctrine->getRepository('ZipCode');
 
         $featuresArray = array();
-        $count = 0;
         foreach ($transactions as $transaction) {
-            $count++;
-            if ($count == 101) {
+            if (sizeof($featuresArray) == 100) {
                 break;
             }
 
@@ -59,10 +57,11 @@ class DashboardController extends Controller
             $state = $location[1];
             $zipCodes = $zipCodeRepository->findBy(['county' => $county, 'name' => $state]);
             if (empty($zipCodes)) {
-                $newCounty = explode(" ", $county)[0];
+                $newCounty = explode(" ", $county);
+                array_pop($newCounty);
+                $newCounty = implode(" ", $newCounty);
                 $zipCodes = $zipCodeRepository->findBy(['county' => $newCounty, 'name' => $state]);
                 if (empty($zipCodes)) {
-                    error_log($county . $state . "no zip code continue");
                     continue;
                 }
             }
