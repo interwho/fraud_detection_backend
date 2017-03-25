@@ -201,4 +201,12 @@ class Transaction
     {
         $this->fraudReason = $fraudReason;
     }
+
+    /**
+     * @return int
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 }

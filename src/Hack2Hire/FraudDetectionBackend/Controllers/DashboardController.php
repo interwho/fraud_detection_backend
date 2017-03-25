@@ -1,7 +1,6 @@
 <?php
 namespace Hack2Hire\FraudDetectionBackend\Controllers;
 
-use Doctrine\DBAL\Query\QueryBuilder;
 use Hack2Hire\FraudDetectionBackend\Entities\Transaction;
 use Hack2Hire\FraudDetectionBackend\Repositories\POSDeviceRepository;
 use Hack2Hire\FraudDetectionBackend\Repositories\ZipCodeRepository;
@@ -18,15 +17,12 @@ class DashboardController extends Controller
     {
         $doctrine = new DoctrineService();
 
-        $queryBuilder = $doctrine->getManager()->createQueryBuilder();
-
         /** @var Transaction[] $transactions */
-        $transactions = $queryBuilder->select('*')
-            ->from('transactions', 't')
-            ->orderBy('t.date_added', 'DESC')
-            ->setMaxResults(100)
-            ->getQuery()
-            ->execute();
+        $transactions = $doctrine->getRepository('Transaction')->findAll();
+
+        usort($transactions, function (Transaction $a, Transaction $b) {
+            return strcmp($a->getDateAdded(), $b->getDateAdded());
+        });
 
         /** @var POSDeviceRepository $posDeviceRepository */
         $posDeviceRepository = $doctrine->getRepository('POSDevice');
@@ -35,7 +31,13 @@ class DashboardController extends Controller
         $zipCodeRepository = $doctrine->getRepository('ZipCode');
 
         $featuresArray = array();
+        $count = 0;
         foreach ($transactions as $transaction) {
+            $count++;
+            if ($count == 101) {
+                break;
+            }
+            
             // Determine point type
             if ($transaction->getIsFraud()) {
                 $name = 'FraudulentTransaction-' . $transaction->getFraudReason();
