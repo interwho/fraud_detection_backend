@@ -29,7 +29,7 @@ class Transaction
     /**
      * @var integer $transactionValue
      *
-     * @Column(name="transaction_value", type="double", nullable=false)
+     * @Column(name="transaction_value", type="integer", nullable=false)
      */
     protected $transactionValue;
 
@@ -75,7 +75,7 @@ class Transaction
     {
         $this->id = $id;
         $this->deviceId = $deviceId;
-        $this->transactionValue = $transactionValue;
+        $this->transactionValue = $transactionValue * 100;
         $this->accountId = $accountId;
         $this->tsMillis = $tsMillis;
         $this->isFraud = $isFraud;
@@ -119,7 +119,7 @@ class Transaction
      */
     public function getTransactionValue()
     {
-        return $this->transactionValue;
+        return $this->transactionValue / 100;
     }
 
     /**
@@ -127,7 +127,7 @@ class Transaction
      */
     public function setTransactionValue($transactionValue)
     {
-        $this->transactionValue = $transactionValue;
+        $this->transactionValue = $transactionValue * 100;
     }
 
     /**
