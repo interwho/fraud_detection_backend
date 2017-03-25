@@ -15,7 +15,7 @@ class FraudService
             if ($isFraud) return "Back Date more than 1 hour.";
         }
 
-        if (!$isDifferentLocation) {
+        if (!$isFraud) {
             $isFraud = $this->isBackDate($id, $deviceId, $transactionValue, $accountId, $tsMillis, 10 * 60 * 1000);
 
             if ($isFraud) return "Same account, different location within 10 minutes.";
