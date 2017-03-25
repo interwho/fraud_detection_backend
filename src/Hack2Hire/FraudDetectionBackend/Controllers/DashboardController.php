@@ -40,6 +40,10 @@ class DashboardController extends Controller
             // Determine lat/lon
             $deviceId = $transaction->getDeviceId();
             $device = $posDeviceRepository->findOneBy(['id' => $deviceId]);
+            if (empty($device)) {
+                //Fraud
+                continue;
+            }
             $location = explode(", ", $device->getLocation());
             $county = $location[0];
             $state = $location[1];
